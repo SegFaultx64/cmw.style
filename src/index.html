@@ -1,0 +1,311 @@
+<html>
+<head>
+  <title>{Title}</title>
+  <link rel="shortcut icon" href="{Favicon}">
+  <link rel="alternate" type="application/rss+xml" href="{RSS}">
+  {block:Description}
+      <meta name="description" content="{MetaDescription}" />
+  {/block:Description}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Bitter', serif;
+    }
+
+    .top {
+      display: flex;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .top .group {
+      width: 40%;
+    }
+
+    .top .group.small {
+      width: 20%;
+    }
+
+    .group {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    a {
+      color: #333;
+      transition: all 450ms ease-in-out;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #666;
+    }
+
+    .top a {
+      font-size: 2rem;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      position: relative;
+      padding: 25px;
+      font-size: 3.5rem;
+      /*font-weight: bold;*/
+      opacity: 1;
+      transition: all 450ms ease-in-out;
+      letter-spacing: 0.05em;
+      line-height: 1.1em;
+      font-weight: bold;
+
+      border-bottom: 3px solid #666;
+      margin-bottom: 25px;
+    }
+
+
+
+    .container {
+      width:100%;
+      max-width:1080px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    img {
+      width: 33%;
+      margin: 0;
+    }
+
+    .header:not(.permalink) {
+      -moz-column-count: 2;
+      -moz-column-gap: 0px;
+      -webkit-column-count: 2;
+      -webkit-column-gap: 0px;
+      column-count: 2;
+      column-gap: 0px;
+      width: 100%;
+    }
+
+    .header:not(.permalink) .post{
+      display: inline-block;
+      margin-bottom: 0px;
+      width: 100%;
+      border: 1px solid white;
+    }
+
+    .header:not(.permalink) .post figure:first-of-type{
+      display: block;
+    }
+
+    .header:not(.permalink) .post figure:first-of-type img{
+      width: 100%;
+      opacity: 0.35;
+      transition: all 450ms ease-in-out;
+      overflow: hidden;
+    }
+    .header:not(.permalink) .post figure, .header:not(.permalink) .post .title-wrapper h2{
+      display: block;
+    }
+
+    .header:not(.permalink) .post figure, .header:not(.permalink) .post p,
+    .header:not(.permalink) .post figure, .header:not(.permalink) .post h1,
+    .header:not(.permalink) .post figure, .header:not(.permalink) .post h2{
+      display: none;
+    }
+
+    .header:not(.permalink) .post {
+      background: #000;
+      position: relative;
+    }
+
+    .header:not(.permalink) .post h2 {
+      color: white;
+      text-align: center;
+      position: relative;
+      padding: 25px;
+      font-size: 3.5rem;
+      /*font-weight: bold;*/
+      opacity: 1;
+      transition: all 450ms ease-in-out;
+      letter-spacing: 0.05em;
+      line-height: 1.1em;
+    }
+
+    h2 {
+      text-align: center;
+      position: relative;
+      padding: 25px;
+      font-size: 3.5rem;
+      letter-spacing: 0.05em;
+      line-height: 1.1em;
+      color: #333;
+    }
+
+    .title-wrapper {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0,0,0,0.01);
+    }
+
+    .header:not(.permalink) .post:hover figure:first-of-type img {
+      opacity: 1;
+    }
+
+    .header:not(.permalink) .post:hover h2 {
+      opacity: 0;
+    }
+
+    .avatar {
+      border-radius: 50%;
+      overflow: hidden;
+      background: url(http://68.media.tumblr.com/avatar_1328c879d74b_96.png);
+      height: 120px;
+      width: 120px;
+      background-size: cover;
+    }
+
+    .av-holder {
+      border: 3px solid #666;
+      padding: 3px;
+      border-radius: 50%;
+      display: inline-block;
+      /*margin: 4px auto;*/
+      position: relative;
+      transition: all 450ms ease-in-out;
+    }
+
+    .footer {
+      width: 100%;
+      margin-top: 25px;
+      border-top: 3px solid #666;
+      padding: 25px 0;
+
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    p {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .header.permalink {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .permalink figure {
+      padding: 5px 0;
+    }
+
+    figure img {
+      width: 100%;
+      height: auto;
+    }
+
+    p a {
+      color: #666;
+      text-decoration: none;
+      background: linear-gradient(#FFF,#FFF),linear-gradient(#FFF,#FFF),linear-gradient(#666,#666);
+      background-size: .05em 1px,.05em 1px,1px 1px;
+      background-repeat: no-repeat,no-repeat,repeat-x;
+      text-shadow: .03em 0 #FFF,-.03em 0 #FFF,0 .03em #FFF,0 -.03em #FFF,.06em 0 #FFF,-.06em 0 #FFF,.09em 0 #FFF,-.09em 0 #FFF,.12em 0 #FFF,-.12em 0 #FFF,.15em 0 #FFF,-.15em 0 #FFF;
+      background-position: 0 87%,100% 87%,0 87%;
+    }
+
+    p a:hover {
+      color: #111;
+      background: linear-gradient(#FFF,#FFF),linear-gradient(#FFF,#FFF),linear-gradient(#111,#111);
+    }
+
+    b {
+      font-weight: bold;
+    }
+
+    i {
+      font-style: italic;
+    }
+
+    /*.av-holder:hover {
+      padding: 5px;
+      margin: 0;
+    }*/
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top">
+      <div class="group">
+        <a href="https://www.facebook.com/carolynwalkerstyle/">
+          <i class="fa fa-facebook"></i>
+        </a>
+        <a href="instagram.com/mizrolyns">
+          <i class="fa fa-instagram"></i>
+        </a>
+        <a href="https://cmwtravel.exposure.co/">
+          <i class="fa fa-camera"></i>
+        </a>
+        <a href="https://www.bloglovin.com/blogs/a-few-more-words-8796221">
+          <i class="fa fa-plus-circle"></i>
+        </a>
+        <a href="mailto:socialpizzaeater@gmail.com">
+          <i class="fa fa-envelope"></i>
+        </a>
+      </div>
+      <div class="group small">
+        <a href="/">
+          <div class="av-holder">
+            <div class="avatar"></div>
+          </div>
+        </a>
+      </div>
+      <div class="group">
+        <a href="/archive">Archive</a>
+        <a href="/rss">RSS</a>
+        <a href="/ask">Ask</a>
+      </div>
+    </div>
+    <h1>{Title}</h1>
+
+    <div class="header {block:Permalink}permalink{/block:Permalink}">
+      {block:Posts}{block:Text}
+      <div class="post">
+        {block:IndexPage}<a href="{Permalink}">
+          <div class="title-wrapper">
+            <h2>{Title}</h2>
+          </div>
+        </a>{/block:IndexPage}
+        {block:Permalink}
+          <h2>{Title}</h2>
+        {/block:Permalink}
+        {Body}
+      </div>
+      {/block:Text}{/block:Posts}
+    </div>
+    <div class="footer">
+      {block:Pagination}{block:PreviousPage}
+          <a href="{PreviousPage}">Previous</a>
+      {/block:PreviousPage}
+          - <span class="current_page">{CurrentPage}</span> -&nbsp;
+        {block:NextPage}
+          <a href="{NextPage}">Next</a>
+      {/block:NextPage}{/block:Pagination}
+    </div>
+  </div>
+</body>
+</html>
