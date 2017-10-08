@@ -100,6 +100,11 @@
       border: 1px solid white;
     }
 
+    .header:not(.permalink) .post:not(.video) {
+      opacity: 0;
+      transition: opacity 250ms ease-in-out;
+    }
+
     .header:not(.permalink) .post figure:first-of-type{
       display: block;
     }
@@ -110,19 +115,43 @@
       transition: all 450ms ease-in-out;
       overflow: hidden;
     }
+
+
+    .header:not(.permalink) .post>img:first-of-type{
+      display: block;
+      width: 100%;
+      opacity: 0.35;
+      transition: all 450ms ease-in-out;
+      overflow: hidden;
+    }
+
     .header:not(.permalink) .post figure, .header:not(.permalink) .post .title-wrapper h2{
       display: block;
     }
 
     .header:not(.permalink) .post figure, .header:not(.permalink) .post p,
     .header:not(.permalink) .post figure, .header:not(.permalink) .post h1,
-    .header:not(.permalink) .post figure, .header:not(.permalink) .post h2{
+    .header:not(.permalink) .post figure, .header:not(.permalink) .post>img,
+    .header:not(.permalink) .post figure, .header:not(.permalink) .post h2 {
       display: none;
     }
 
     .header:not(.permalink) .post {
       background: #000;
       position: relative;
+    }
+
+    .header:not(.permalink) p>img {
+      width: 100%;
+      height: auto;
+      transition: all 450ms ease-in-out;
+      opacity: 0.35;
+    }
+
+    .header:not(.permalink) .post:hover p>img {
+      width: 100%;
+      height: auto;
+      opacity: 1;
     }
 
     .header:not(.permalink) .post h2 {
@@ -158,7 +187,7 @@
       background: rgba(0,0,0,0.01);
     }
 
-    .header:not(.permalink) .post:hover figure:first-of-type img {
+    .header:not(.permalink) .post:hover figure:first-of-type img, .header:not(.permalink) .post:hover > img:first-of-type {
       opacity: 1;
     }
 
@@ -166,10 +195,15 @@
       opacity: 0;
     }
 
+    .header:not(.permalink) .post.video iframe {
+      width: 100%;
+      height: 100% !important;
+    }
+
     .avatar {
       border-radius: 50%;
       overflow: hidden;
-      background: url(http://68.media.tumblr.com/avatar_1328c879d74b_96.png);
+      background: url({PortraitURL-128});
       height: 120px;
       width: 120px;
       background-size: cover;
@@ -211,9 +245,17 @@
       padding: 5px 0;
     }
 
-    figure img {
+    figure img, .permalink img {
       width: 100%;
       height: auto;
+    }
+
+    .permalink iframe {
+      width: 100%;
+    }
+
+    .tmblr-embed iframe {
+      width: 100%;
     }
 
     p a {
@@ -246,6 +288,34 @@
 
 
   </style>
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function(e){
+
+      function findAncestor (el, cls) {
+        while ((el = el.parentElement) && !el.classList.contains(cls));
+        return el;
+      }
+
+      Array.prototype.slice.call(document.querySelectorAll('.post:not(.video) > figure:first-of-type img, .post:not(.video) > figure:first-of-type iframe'))
+        .forEach(function (d) {
+          console.log(d)
+          var post = findAncestor(d, 'post')
+
+          d.onload = function () {
+
+            post.style.opacity = 1;
+          }
+
+          setTimeout(function () {
+            post.style.opacity = 1;
+          }, 1500)
+
+          d.src = d.src;
+        });
+
+    });
+  </script>
 </head>
 <body>
   <div class="container">
@@ -295,7 +365,22 @@
         {/block:Permalink}
         {Body}
       </div>
-      {/block:Text}{/block:Posts}
+      {/block:Text}
+      {block:Video}
+      <div class="post video" {block:IndexPage}style="height: 303px;"{/block:IndexPage}>
+        {block:IndexPage}<a href="{Permalink}">
+          <div class="title-wrapper">
+            <h2></h2>
+          </div>
+          {Video-700}
+        </a>{/block:IndexPage}
+        {block:Permalink}
+          <h2></h2>
+          {Video-500}
+          {Caption}
+        {/block:Permalink}
+      </div>
+      {/block:Video}{/block:Posts}
     </div>
     <div class="footer">
       {block:Pagination}{block:PreviousPage}
@@ -307,5 +392,15 @@
       {/block:NextPage}{/block:Pagination}
     </div>
   </div>
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-90027541-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
 </body>
 </html>
